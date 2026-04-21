@@ -76,6 +76,7 @@ class node:
         self.player = player
         self.children = []
         self.parents = []
+        self.state = (p1, p2, player)
         # store ancestry history as set of visited states
         if parent_states is None:
             self.parent_states = set()  
@@ -97,14 +98,15 @@ class node:
             self.children.append(child)
             
     def is_terminal(self):
-        if (self.player != tuple.index(terminal)):
+        if terminal not in self.state:
+            return False
+        if (self.player != self.state.index((0,0))):
             return "loss"
         if (self.p1 == terminal):
             #return parents and the winner
-            return (self.parents, "xp2")
+            return "xp2"
         elif (self.p2 == terminal):
-            return (self.parennts, "xp1")
-        return False
+            return "xp1"
 
 def game():
     root = node((1,1), (1,1), 0)
@@ -114,12 +116,17 @@ def game():
     while frontier:
         state = frontier.pop(0)  # BFS
         
-        if state.is_terminal():
-            if state.player != tuple.index(terminal):
-                terminal_paths.append(state.parents)
-                print(state.is_terminal())
+        match(state.is_terminal()):
+            case "loss":
                 continue
-
+            case "xp1":
+                print("xp1")
+                return state.parents
+            case "xp2":
+                print("xp2")
+                return state.parents
+            case _:
+                pass
         # Expand children
         state.expand()
         # Add children to frontier only if their state hasn’t been visited in this path
