@@ -66,6 +66,9 @@ def possible_moves(p1, p2, player=0):
         attacks = list(zip(attack_moves(p, o),[p] * len(attack_moves(p, o))))
     return splits + attacks
 
+#define a terminal state
+terminal = (0,0)
+
 class node:
     def __init__(self, p1, p2, player=0, parent_states=None):
         self.p1 = p1
@@ -94,8 +97,13 @@ class node:
             self.children.append(child)
             
     def is_terminal(self):
-        if (self.p1 == (0, 0)) or (self.p2 == (0, 0)):
-            return True
+        if (self.player != tuple.index(terminal)):
+            continue
+        if (self.p1 == terminal):
+            #return parents and the winner
+            return (self.parents, "xp2")
+        elif (self.p2 == terminal):
+            return (self.parennts, "xp1")
         return False
 
 def game():
@@ -107,8 +115,9 @@ def game():
         state = frontier.pop(0)  # BFS
         
         if state.is_terminal():
-            terminal_paths.append(state)
-            print("Terminal:", state.p1, state.p2, state.player)
+            if self.player =! tuple
+            terminal_paths.append(state.parents)
+            print(state.is_terminal())
             continue
 
         # Expand children
@@ -121,5 +130,5 @@ def game():
 
     return terminal_paths
 
-# a = game()
+a = game()
 
