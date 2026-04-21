@@ -98,7 +98,7 @@ class node:
             
     def is_terminal(self):
         if (self.player != tuple.index(terminal)):
-            continue
+            return "loss"
         if (self.p1 == terminal):
             #return parents and the winner
             return (self.parents, "xp2")
@@ -115,10 +115,10 @@ def game():
         state = frontier.pop(0)  # BFS
         
         if state.is_terminal():
-            if self.player =! tuple
-            terminal_paths.append(state.parents)
-            print(state.is_terminal())
-            continue
+            if state.player != tuple.index(terminal):
+                terminal_paths.append(state.parents)
+                print(state.is_terminal())
+                continue
 
         # Expand children
         state.expand()
